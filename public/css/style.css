@@ -1,0 +1,13 @@
+body{
+    width: 750px;
+    margin: 0 auto;
+}
+
+h1{
+    text-align: center;
+}
+
+.banner{
+    width: 750px;
+    height: 100px;
+}

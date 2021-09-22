@@ -1,0 +1,43 @@
+<%- include('../templates/header', {title:'Productos'}) -%>
+<h1> Productos <%= (modelo.length) %></h1>   
+<div class="table-responsive-sm" style="width: auto;">
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Precio</th>
+                <th>Descripcion</th>
+                <th>Imagen</th>
+                <th class="d-print-none"> <a href="/crear-producto">Crear Nuevo</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            <% for (const producto of modelo) %>
+            <tr>
+                <td><%= producto.Id %></td>
+                <td><%= producto.Nombre %></td>
+                <td><%= producto.Precio %></td>
+                <td><%= producto.Stock %></td>
+                <td><%= producto.Thumbnail %></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<br/>
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-sm-6">
+            <label class="form-label">Mensajes del servidor</label>
+            <div id="messages"></div>
+        </div>
+        <div class="col-sm-5">
+            <form onsubmit="return addMessage(this)">
+                <input type="email" id="username" placeholder="Tu mail" >   
+                <input type="text" id="texto" placeholder="Cuéntanos algo...">  
+                <input type="submit" class="btn btn-primary mt-2" value="Enviar!">
+            </form>
+        </div>
+    </div>
+</div>
