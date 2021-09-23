@@ -1,7 +1,7 @@
 //Librerias y dependencias
 var express = require('express'); 
 var app = express();
-const PORT = 3307;
+const PORT = 8080;
 const server = require('http').Server(app); 
 const io = require('socket.io')(server);
 const { options } = require('../options/sqlite3');
@@ -18,27 +18,22 @@ app.use(express.urlencoded({extended: true})); //Permiten recuperar valores publ
 //Base de Datos
 //Creacion Tablas
 knex.schema.hasTable('producto').then(exists => {
-    if(exists){
-        knex.destroy();
-    } else {
+    if(!exists){
         knex.schema.createTable('producto', table => {
             table.increments('id')
             table.string('name')
             table.integer('price')
+            table.integer('stock')
             table.string('thumbnail')
         }).then(() => console.log("table created"))
         .catch((err) => { console.log(err); throw err })
         .finally(() => {
-            knex.destroy();
         })
-        knex.destroy();
     }
 })
 
 knex.schema.hasTable('cart').then(exists => {
-    if(exists){
-        knex.destroy();
-    } else {
+    if(!exists){
         knex.schema.createTable('cart', table => {
             table.increments('id')
             table.string('name')
@@ -47,7 +42,6 @@ knex.schema.hasTable('cart').then(exists => {
         }).then(() => console.log("table created"))
         .catch((err) => { console.log(err); throw err })
         .finally(() => {
-            knex.destroy();
         })
     }
 })
@@ -97,10 +91,9 @@ app.get('/cartilla', (req, res) => {
 app.get('/productos', (req, res) => {
     knex.from('producto').select("*").orderBy('name')
     .then((rows) => {
-        res.render('./layouts/productos.ejs', {modelo: rows} );
+        res.render('./layouts/products.ejs', {modelo: rows} );
     }).catch((err) => { console.log(err); throw err; })
     .finally(() => {
-        knex.destroy();
     })
 })
 
@@ -108,11 +101,11 @@ app.get('/productos', (req, res) => {
 app.get('/contacto', (req, res) => {
     res.render("./layouts/contact.ejs");
 })
-
+/*
 app.get('/*', (req, res) =>{
     res.render('./layouts/notfound.ejs');
 })
-
+*/
 //Abro mi servidor
 app.listen(PORT, err => {
     if(err) throw new Error(`Error en servidor ${err}`)
