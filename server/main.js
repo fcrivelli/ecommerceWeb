@@ -2,10 +2,11 @@
 var express = require('express'); 
 var app = express();
 const PORT = 8080;
-const server = require('http').Server(app); 
-const io = require('socket.io')(server);
-const { options } = require('../options/sqlite3');
-const knex = require('knex')(options); 
+var server = require('http').Server(app); 
+var io = require('socket.io')(server);
+var mongoose = require ('mongoose');
+var modelProduct = require('../models/product.js');
+var modelMessage  = require('../models/menssage.js');
 
 //Recursos
 app.use(express.static(__dirname));
@@ -17,53 +18,38 @@ app.use(express.urlencoded({extended: true})); //Permiten recuperar valores publ
 
 //Base de Datos
 //Creacion Tablas
-knex.schema.hasTable('producto').then(exists => {
-    if(!exists){
-        knex.schema.createTable('producto', table => {
-            table.increments('id')
-            table.string('name')
-            table.integer('price')
-            table.integer('stock')
-            table.string('thumbnail')
-        }).then(() => console.log("table created"))
-        .catch((err) => { console.log(err); throw err })
-        .finally(() => {
+CRUD()
+async function CRUD() {
+    try{
+        const URL = 'mongodb://localhost:27017/ecommerce'
+        let rta = await mongoose.connect(URL, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
         })
+        console.log('Base de datos conectada');
+    } catch(error){
+        console.log(`Error en Crud: ${error}`)
     }
-})
-
-knex.schema.hasTable('cart').then(exists => {
-    if(!exists){
-        knex.schema.createTable('cart', table => {
-            table.increments('id')
-            table.string('name')
-            table.integer('amount')
-            table.integer('productoid')
-        }).then(() => console.log("table created"))
-        .catch((err) => { console.log(err); throw err })
-        .finally(() => {
-        })
-    }
-})
+}
 
 
 //Coneccion web socket para productos
 io.on('connection', function(socket) { 
   console.log('Alguien se ha conectado con Sockets');   
-  socket.emit('products', products); 
+  socket.emit('products', modelProduct.products.find({}).sort({name: 1})); 
   socket.on('new-product', function(data) { 
-    products.push(data); 
-    io.sockets.emit('products', products); 
+    new modelProduct.products({ name: data.name, price: data.price, stock: data.stock, thumbnail: data.thumbnail, category: data.category }).save(); 
+    io.sockets.emit('products', modelProduct.products.find({}).sort({name: 1})); 
   }); 
 });
 
 //Coneccion web socket para mensajes usuarios
 io.on('connection', function(socket) { 
   console.log('Alguien se ha conectado con Sockets');   
-  socket.emit('messages', messages); 
+  socket.emit('messages', modelMessage.messages.find({}).sort({name: 1})); 
   socket.on('new-message', function(data) { 
-    messages.push(data); 
-    io.sockets.emit('messages', messages); 
+    new modelMessage.messages({ username: data.username, text: data.text, date: data.date }).save();
+    io.sockets.emit('messages', modelMessage.messages.find({}).sort({name: 1})); 
   }); 
 });
 
@@ -79,7 +65,10 @@ app.get('/crear-producto', (req, res) => {
 })
 
 app.post('/crear-producto', (req, res) => {
-
+    if(req.body){
+        let newProduct = req.body;
+        new modelProduct.products({ name: newProduct.name, price: newProduct.price, stock: newProduct.stock, thumbnail: newProduct.thumbnail, category: newProduct.category }).save();
+    }
 })
 
 //Muestra cartilla
@@ -89,12 +78,15 @@ app.get('/cartilla', (req, res) => {
 
 //Muestra listado de productos
 app.get('/productos', (req, res) => {
-    knex.from('producto').select("*").orderBy('name')
-    .then((rows) => {
-        res.render('./layouts/products.ejs', {modelo: rows} );
-    }).catch((err) => { console.log(err); throw err; })
-    .finally(() => {
-    })
+   let products = [];
+  modelProduct.products.find({}).sort({name: 1})
+  .then(rows => {
+     products = rows;
+     modelMessage.messages.find({}).sort({date: 1})
+     .then(rows =>{
+        res.render('./layouts/products.ejs', {products: products, messages: rows} );
+     }).catch(err => console.log(err.message));
+  }).catch(err => console.log(err.message) );
 })
 
 //Muestra listado de productos
@@ -112,50 +104,4 @@ app.listen(PORT, err => {
     console.log("My HTTP server listening on port " + PORT + "...");
 });
 
-/*
-app.get('/api/productos/listar', (req, res) => {
-    if(indice == 0){
-        res.status(400).send(msjProductsNotCharge);
-    } else {
-        res.send(workProducts.getProducts());
-    }
-});
 
-app.get('/api/productos/listar/:id', (req, res) => {
-    if(!workProducts.validateId(req.params.id)){
-        res.status(400).send(msjProductNotFound);
-    } else {
-        res.send({
-            id: req.params.id,
-            product: workProducts.getProductById(req.params.id)
-        });
-    }
-});
-
-app.delete('/api/productos/borrar', (req, res) => {
-    if(!workProducts.validateBody(req.body)){
-        res.status(400).send(msjError);
-    } else {
-        workProducts.deleteProduct(req.body);
-        res.send(msjDelete);
-    }
-});
-
-app.put('/api/productos/actualizar', (req, res) => {
-    if(!workProducts.validateBody(req.body)){
-        res.status(400).send(msjError);
-    } else {
-        workProducts.updateProduct(req.body);
-        res.send(msjSave);
-    }
-});
-
-app.post('/api/productos/guardar', (req, res) => {
-    if(!workProducts.validateBody(req.body)){
-        res.status(400).send(msjError);
-    } else {
-        workProducts.saveProduct(req.body);
-        res.send(msjSave);
-    }
-});
-*/
