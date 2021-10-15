@@ -1,0 +1,30 @@
+<label class="form-label"> Productos <%= (products.length) %></label>
+<div class="row" id="container">
+    <div>&nbsp;</div>
+    <div class="table-responsive" id="mydatatable-container">
+        <table class="records_list table table-striped table-bordered table-hover" id="mydatatable">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Categoría</th>
+                    <th>Imagen</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% products.forEach(function(product) { %>
+                    <tr>
+                        <td><%= product.id %></td>
+                        <td><%= product.name %></td>
+                        <td><%= product.price %></td>
+                        <td><%= product.stock %></td>
+                        <td><%= product.category %></td>
+                        <td><img src='<%= product.thumbnail %>' width="40" height="40"><img/></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    </div>
+</div>

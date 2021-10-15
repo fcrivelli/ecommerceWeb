@@ -1,0 +1,21 @@
+<div class="col-md-3 col-sm-6">
+    <figure class="card card-product-grid">
+        <a href="#" class="img-wrap">
+            <img src="<%= product.thumbnail %>">
+        </a>
+        <figcaption class="info-wrap">
+            <a href="#" class="title"><%= product.name %></a>
+            <p>Categoría: <%= product.category %></p>
+            <div class="mt-2">
+                <var class="price">Precio: $<%= product.price %></var>
+                <br>
+                <% if (product.stock > 0) { %>
+                    <strong>En Stock</strong>
+                <% } else { %>
+                    <strong>Sin Stock</strong>
+                <% } %>	
+                <a href="#" class="btn rounded-pill btn-outline-primary float-right">Add Cart<i class="fa fa-shopping-cart"></i></a>
+            </div> 
+        </figcaption>
+    </figure> 
+</div>

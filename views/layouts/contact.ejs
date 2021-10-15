@@ -1,2 +1,35 @@
 <%- include('../templates/header', {title:'Contacto'}) -%>
-<h1>Contacto<h1>
+<%- include('../templates/navbar') -%>
+
+<div class="container">
+    <div class="row mt-4">
+        <div class="col-sm-6">
+            <div class="card">
+                <div class="card-body d-flex">
+                    <div class="form-inline d-inline-flex mr-auto">
+                        <h1 class="display-4">Chat !!</h1>
+                        <div id="messages"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class=”container”>
+                <div class=”jumbotron”>
+                    <div class="card">
+                        <div class="card-body d-flex">
+                            <div class="form-inline d-inline-flex mr-auto">
+                                <h1 class="display-4">Escribinos:</h1>
+                                <form onsubmit="return addMessage(this)">
+                                    <input type="email" id="username" placeholder="Tu mail" >   
+                                    <input type="text" id="texto" placeholder="Cuéntanos algo...">  
+                                    <input type="submit" class="btn btn-primary mt-2" value="Enviar!">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+        </div>
+    </div>
+</div>

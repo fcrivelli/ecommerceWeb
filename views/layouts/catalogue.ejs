@@ -1,0 +1,8 @@
+<%- include('../templates/header', {title:'Catalogo'}) -%>
+<%- include('../templates/navbar') -%>
+
+<% if (products.length > 0) { %>
+    <%- include('../templates/tablaproducts', {products: products}) -%>
+<% } else { %>
+    <h1>No hay Productos</h1>
+<% } %>

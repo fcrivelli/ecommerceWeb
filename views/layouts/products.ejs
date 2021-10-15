@@ -1,61 +1,35 @@
 <%- include('../templates/header', {title:'Productos'}) -%>
+<%- include('../templates/navbar') -%>
+
+<div class="card">
+    <div class="card-body d-flex">
+        <div class="form-inline d-inline-flex mr-auto">
+            <labe>Category
+            <select class="ml-2 form-control">
+                <option>Clothes</option>
+                <option>Electronics</option>
+                <option>Home Items</option>
+                <option>Foods</option>
+            </select>
+        </labe></div>
+        <input type="text" class="form-control" style="width:55%;" placeholder="Search">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+            <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+</div> <!-- card.// -->
 <% if (products.length > 0) { %>
-    <h1> Productos <%= (products.length) %></h1>   
-    <div class="table-responsive-sm" style="width: auto;">
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                    <th>Stock</th>
-                    <th>Imagen</th>
-                    <th class="d-print-none"> <a href="/crear-producto">Crear Nuevo</a></th>
-                </tr>
-            </thead>
-            <tbody>
-                <% products.forEach(function(product) { %>
-                    <tr>
-                        <td><%= product.id %></td>
-                        <td><%= product.name %></td>
-                        <td><%= product.price %></td>
-                        <td><%= product.stock %></td>
-                        <td><%= product.thumbnail %></td>
-                    </tr>
-                <% }); %>
-            </tbody>
-        </table>
+    <div class="card">
+        <div class="card-body d-flex">
+            <div class="form-inline d-inline-flex mr-auto">
+                        <% products.forEach(function(product) { %>
+                            <%- include('../templates/productitem', {product: product}) -%>
+                        <% }); %>
+            </div>
+        </div>
     </div>
 <% } else { %>
     <h1>No hay Productos</h1>
-<% } %>
-<br/>
-
-<div class="container">
-    <div class="row mt-4">
-        <div class="col-sm-6">
-            <label class="form-label">Mensajes del servidor</label>
-            <% if (messages.length > 0) { %>
-                <div id="messages">
-                    <label class="form-label"> Cantidad Mensajes: <%= (messages.length) %></label>
-                    <% messages.forEach(function(message) { %>
-                        <div>
-                            <strong style="color: blue;"><%= message.username %></strong>
-                            <strong style="color: brown;"><%= message.text %></strong> 
-                            <em style="color: green;"><%= message.date %></em> 
-                        </div>
-                    <% }); %>
-                </div>
-            <% } else { %>
-                <label class="form-label"> No hay Mensajes</label>
-            <% } %>
-        </div>
-        <div class="col-sm-5">
-            <form onsubmit="return addMessage(this)">
-                <input type="email" id="username" placeholder="Tu mail" >   
-                <input type="text" id="texto" placeholder="Cuéntanos algo...">  
-                <input type="submit" class="btn btn-primary mt-2" value="Enviar!">
-            </form>
-        </div>
-    </div>
-</div>
+<% } %>	

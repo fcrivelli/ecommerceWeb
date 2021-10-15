@@ -1,15 +1,29 @@
-<%- include('../templates/header', {title:'Agregar Producto'}) -%>  
-<form action="/productos/vista" method="POST">
+<%- include('../templates/header', {title:'Agregar Producto'}) -%>
+<%- include('../templates/navbar') -%>
+
+<form action="/crear-producto" method="POST">
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Titulo</label>
         <div class="col-sm-10">
-        <input type="text" class="form-control" name="title" placeholder="Titulo">
+        <input type="text" class="form-control" name="name" placeholder="Titulo">
         </div>
     </div>
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Precio</label>
         <div class="col-sm-10">
         <input type="numeric" class="form-control" name="price" placeholder="Precio">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Stock</label>
+        <div class="col-sm-10">
+        <input type="numeric" class="form-control" name="stock" placeholder="Stock">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Categoría</label>
+        <div class="col-sm-10">
+        <input type="text" class="form-control" name="category" placeholder="Categoría">
         </div>
     </div>
     <div class="form-group row">
@@ -20,7 +34,7 @@
     </div>
     <div class="form-group row">
         <div class="col-sm-10">
-        <button type="submit" class="btn btn-primary" onclick="workProducts.validateId()" id="buttonSave">Guardar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
         </div>
     </div>
 </form>
