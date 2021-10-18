@@ -16,8 +16,9 @@ var modelMessage  = require('../models/menssage.js');
 //Recursos
 app.use(express.static('public'));
 
-/*Configuracion de router */
-//app.use('/api', router.set());
+/*Configuracion de router 
+app.use('/api', router.set());*/
+
 
 //Configuracion del servidor
 app.set('views', './views'); //permite gestionar las rutas de los diferentes recursos
@@ -82,6 +83,7 @@ app.post('*', router.notFound);
 app.put('*', router.notFound);
 app.delete('*', router.notFound);*/
 
+
 //Inicio de pagina
 app.get('/', (req, res) => {
     res.render("./layouts/main.ejs");
@@ -90,6 +92,16 @@ app.get('/', (req, res) => {
 //Adherir productos
 app.get('/crear-producto', (req, res) => {
     res.render("./layouts/addProduct.ejs");
+})
+
+//Log in
+app.get('/login', (req, res) => {
+    res.render("./layouts/login.ejs");
+})
+
+//Cartilla
+app.get('/cartilla', (req, res) => {
+    res.render("./layouts/cart.ejs");
 })
 
 app.post('/crear-producto', (req, res) => {

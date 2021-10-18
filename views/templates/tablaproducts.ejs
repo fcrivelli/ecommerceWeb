@@ -1,8 +1,7 @@
-<label class="form-label"> Productos <%= (products.length) %></label>
 <div class="row" id="container">
     <div>&nbsp;</div>
-    <div class="table-responsive" id="mydatatable-container">
-        <table class="records_list table table-striped table-bordered table-hover" id="mydatatable">
+    <div class="table-responsive">
+        <table class="display" width="100%" id="mydatatable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -14,6 +13,7 @@
                 </tr>
             </thead>
             <tbody>
+
                 <% products.forEach(function(product) { %>
                     <tr>
                         <td><%= product.id %></td>
@@ -24,6 +24,7 @@
                         <td><img src='<%= product.thumbnail %>' width="40" height="40"><img/></td>
                     </tr>
                 <% }); %>
+               
             </tbody>
         </table>
     </div>

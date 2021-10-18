@@ -1,53 +1,49 @@
-<header class="section-header">
-  <section class="header-top-light border-bottom">
-    <div class="container">
-      <nav class="d-flex flex-column flex-md-row">
-          <a class="navbar-brand" href="/">Ecommerce</a>
-        <ul class="nav mr-auto d-none d-md-flex">
-          <li><a href="#" class="nav-link px-2"> <i class="fab fa-facebook"></i> </a></li>
-          <li><a href="#" class="nav-link px-2"> <i class="fab fa-instagram"></i> </a></li>
-          <li><a href="#" class="nav-link px-2"> <i class="fab fa-twitter"></i> </a></li>
-        </ul>
-        <ul class="nav">
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-mdb-toggle="collapse"
+        data-mdb-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <a class="navbar-brand mt-2 mt-lg-0" href="#">
+          <img
+            src="https://mdbootstrap.com/img/logo/mdb-transaprent-noshadows.png"
+            height="15"
+            alt=""
+            loading="lazy"
+          />
+        </a>
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><a class="nav-link" href="/crear-producto">Crear Producto</a></li>
           <li class="nav-item"><a class="nav-link" href="/productos">Productos</a></li>
-          <li class="nav-item"><a class="nav-link" href="/cartilla">
-            <i class="icon-sm rounded-circle border fa fa-shopping-cart"></i><span class="notify">0</span>  Cartilla</a></li>
           <li class="nav-item"><a class="nav-link" href="/catalogo">Catalogo</a></li>
           <li class="nav-item"><a class="nav-link" href="/contacto">Contacto</a></li>
-          <li class="nav-item"> 
-            <div class="widget-header dropdown">
-              <a href="#" data-toggle="dropdown" data-offset="20,10">
-                <div class="icontext">
-                    <div class="icon">
-                        <i class="icon-sm rounded-circle border fa fa-user"></i>
-                    </div>
-                    <div class="text">
-                        <small class="text-muted">Sign in | Join</small>
-                        <div>My account <i class="fa fa-caret-down"></i> </div>
-                    </div>
-                </div>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <form class="px-4 py-3">
-                  <div class="form-group">
-                    <label>Email address</label>
-                    <input type="email" class="form-control" placeholder="email@example.com">
-                  </div>
-                  <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" class="form-control" placeholder="Password">
-                  </div>
-                  <button type="submit" class="btn btn-primary">Sign in</button>
-                </form>
-                <hr class="dropdown-divider">
-                <a class="dropdown-item" href="#">Have account? Sign up</a>
-                <a class="dropdown-item" href="#">Forgot password?</a>
-              </div> <!--  dropdown-menu .// -->
-            </div>  <!-- widget-header .// -->
-          </li>
-        </ul> <!-- navbar-nav.// -->
-      </nav>
+        </ul>
+      </div>
+
+      <div class="d-flex align-items-center">
+        <a class="text-reset me-3" href="/cartilla">
+          <i class="fas fa-shopping-cart"></i>
+        </a>
+        <a class="nav-link d-sm-flex align-items-sm-center" href="/login">
+          <img
+            src="http://cdn.playbuzz.com/cdn/913253cd-5a02-4bf2-83e1-18ff2cc7340f/c56157d5-5d8e-4826-89f9-361412275c35.jpg"
+            class="rounded-circle"
+            height="22"
+            alt=""
+            loading="lazy"
+          />
+          <strong class="d-none d-sm-block ms-1">Log out</strong>
+        </a>
+      </div>
     </div>
-  </section>
-</header> <!-- section-header.// -->
+  </nav> 
+</header> 

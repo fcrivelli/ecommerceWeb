@@ -9,12 +9,12 @@ const notFound = (req, res) => {
 }
 
 function set(){
-   // router.get('/generate/:cant?', api.generate);
-  //  router.get('/:id?', api.get);
-    //router.post('/', api.post);
-   // router.put('/:id', api.put);
-  //  router.delete('/:id', api.del)
-  //  return router;
+    router.get('/generate/:cant?', api.generate);
+    router.get('/:id?', api.get);
+    router.post('/', api.post);
+    router.put('/:id', api.put);
+    router.delete('/:id', api.del)
+    return router;
 }
 
 module.exports = {

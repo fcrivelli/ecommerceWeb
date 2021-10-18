@@ -5,9 +5,9 @@
         </a>
         <figcaption class="info-wrap">
             <a href="#" class="title"><%= product.name %></a>
-            <p>Categoría: <%= product.category %></p>
+            <p><strong>Categoría:</strong> <%= product.category %></p>
             <div class="mt-2">
-                <var class="price">Precio: $<%= product.price %></var>
+                <var class="price"><strong>Precio:</strong> $<%= product.price %></var>
                 <br>
                 <% if (product.stock > 0) { %>
                     <strong>En Stock</strong>

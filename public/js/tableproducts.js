@@ -1,37 +1,30 @@
 var TABLE_ID = '#mydatatable';
-var TABLE_FOOT = '#mydatatable tfoot th';
 var CONTAINER = '#container';
+var SEARCH_ID = '#mysearch';
 var table;
 
 $(document).ready(function() {
     initTable();
+    initSearch();
 });
 
+function initSearch(){
+    $(SEARCH_ID).on('change', function() {
+        $(TABLE_ID).dataTable().
+        alert( "Handler for .change() called." );
+    });
+}
+
+function loadTable (products) {
+    $(TABLE_ID).dataTable().fnClearTable();
+    if (products.length > 0) {
+        $(TABLE_ID).dataTable().fnAddData(products);
+    }
+    $(TABLE_ID).dataTable().fnDraw();
+}
+
 function initTable () {
-    $(TABLE_FOOT).each( function () {
-        var title = $(this).text();
-        $(this).html( '<input type="text" placeholder="Filtrar.." />' );
-    } );
-
     table = $(TABLE_ID).DataTable({
-        "dom": 'B<"float-left"i><"float-right"f>t<"float-left"l><"float-right"p><"clearfix">',
-        "responsive": false,
-        "language": {
-            "url": "https://cdn.datatables.net/plug-ins/1.10.19/i18n/Spanish.json"
-        },
-        "initComplete": function () {
-            this.api().columns().every( function () {
-                var that = this;
-
-                $( 'input', this.footer() ).on( 'keyup change', function () {
-                    if ( that.search() !== this.value ) {
-                        that
-                            .search( this.value )
-                            .draw();
-                        }
-                });
-            })
-        },
         "aoColumns": [{
                 "sTitle": "#",
                 "mData": "id",
@@ -61,7 +54,7 @@ function initTable () {
                 "sTitle": "Imagen",
                 "mData": "thumbnail",
                 "render": function(data, type, full, meta) {
-                    var image =`<img src="${full.id}" height="40"/>`;
+                    var image =`<img src=${full.thumbnail} height="40"/>`;
                     return image;
                 },
                 "bSearchable": true
